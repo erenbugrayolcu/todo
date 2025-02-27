@@ -8,4 +8,9 @@ class SaveTask extends ChangeNotifier {
   ];
 
   List<TaskModel> get tasks => _tasks;
+
+  void addTask(TaskModel task){
+    tasks.add(task);
+    notifyListeners();
+  }
 }

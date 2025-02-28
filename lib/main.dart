@@ -1,34 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo/models/save_task.dart';
-import 'package:todo/pages/todo_list.dart';
-import 'package:todo/pages/add_todo.dart';
-import 'package:todo/widgets/themes.dart';
-
-void main() {
+import 'package:NOT/models/save_task.dart';
+import 'package:NOT/pages/settings.dart';
+import 'package:NOT/pages/todo_list.dart';
+import 'package:NOT/pages/add_todo.dart';
+import 'package:NOT/widgets/theme_notifier.dart';
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final themeNotifier = ThemeNotifier();
+  await themeNotifier.loadTheme();
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => SaveTask(),
-      child: const MyApp()
-      ),
-    );
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => SaveTask()),
+        ChangeNotifierProvider(create: (context) => themeNotifier),  
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: AppColors.backColor
-      ),
-      initialRoute: '/',
-      routes: {
-        '/': (_) => const TodoList(),
-        '/add_todo_screen': (_) => AddTodo()
-      },
+    return Builder(
+      builder: (context) {
+        return MaterialApp(
+          theme: context.watch<ThemeNotifier>().currentTheme,
+          initialRoute: '/',
+          routes: {
+            '/': (_) => const TodoList(),
+            '/add_todo_screen': (_) => AddTodo(),
+            '/settings': (_) => SettingsPage(
+              onThemeChanged: context.read<ThemeNotifier>().changeTheme, // Theme değiştir
+            ),
+          },
+        );
+      }
     );
   }
 }

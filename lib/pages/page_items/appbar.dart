@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:todo/widgets/bold_text.dart';
-import 'package:todo/widgets/themes.dart';
+import 'package:NOT/widgets/bold_text.dart';
+import 'package:NOT/widgets/themes.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final Icon icon;
+  final VoidCallback onPressed; 
 
-  const CustomAppBar({Key? key, required this.title}) : super(key: key);
+  const CustomAppBar({
+    super.key,
+    required this.title,
+    required this.icon,
+    required this.onPressed, 
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +22,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         fontSize: 20,
         color: AppColors.textColor, 
       ),
-      backgroundColor: AppColors.backColor,
+      centerTitle: true,
+      backgroundColor: Theme.of(context).primaryColor,
+      leading: IconButton( 
+        icon: icon,
+        onPressed: onPressed,  
+      ),
     );
   }
 

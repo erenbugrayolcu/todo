@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:NOT/widgets/themes.dart';
 
 class BoldText extends StatelessWidget {
   final String text;
@@ -9,7 +10,7 @@ class BoldText extends StatelessWidget {
     Key? key,
     required this.text,
     this.fontSize = 16,
-    this.color = Colors.white,
+    this.color = AppColors.textColor,
   }) : super(key: key);
 
   @override

@@ -32,6 +32,8 @@ class AddTodo extends StatelessWidget {
               context.read<SaveTask>().addTask(
                 TaskModel(title: controller.text)
               );
+              controller.clear();
+              Navigator.of(context).pop();
             }, child: const Text('Add'))
           ],
         ),

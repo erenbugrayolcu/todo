@@ -20,7 +20,7 @@ class BoldText extends StatelessWidget {
       style: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: fontSize,
-        color: color, 
+        color: color,
       ),
     );
   }
